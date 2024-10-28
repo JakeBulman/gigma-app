@@ -1,0 +1,13 @@
+# ignore venv
+venv/
+#ignore data (postgres)
+data/
+#ignore static and media
+static/
+media/
+node_modules/
+
+# sfile types
+*.sock
+*.sqlite3
+*.pyc
