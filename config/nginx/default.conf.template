@@ -1,0 +1,33 @@
+# upstream for uWSGI
+upstream uwsgi_app {
+    server unix:/code/gigma/uwsgi_app.sock;
+}
+
+server {
+    listen              80;
+    server_name         www.educaproject.com educaproject.com;
+    return 301 https://$host$request_uri;
+    }
+
+server {
+    listen              443 ssl;
+    ssl_certificate     /code/gigma/ssl/educa.crt;
+    ssl_certificate_key /code/gigma/ssl/educa.key;
+    server_name         www.educaproject.com educaproject.com;
+    error_log           stderr warn;
+    access_log          /dev/stdout main;
+
+    location / {
+        include /etc/nginx/uwsgi_params;
+        uwsgi_pass  uwsgi_app;
+        proxy_set_header Connection "";
+    }
+
+    location /static/ {
+        alias /code/gigma/static/;
+    }
+
+    location /media/ {
+        alias /code/gigma/media/;
+    }
+}

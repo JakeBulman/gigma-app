@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -22,15 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-rq^yvn3op2_z%-%ju526(ace!-)o%&g5auysa=irv+b*jka5!0'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv('DEV_ENV') == 'TRUE':
-    DEBUG = True
-else:
-    DEBUG = False
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -74,22 +65,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'gigma.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-if os.getenv('DEV_ENV') == 'TRUE':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'gigma',
-            'USER': 'gigma',
-            'PASSWORD': 'gigma',
-            'HOST': 'localhost',
-            'PORT': '5433',
-        }
-    }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -125,6 +100,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

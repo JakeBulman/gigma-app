@@ -1,0 +1,27 @@
+services:
+  web:
+    build: .
+    command: [  "uwsgi", "--ini", "/code/config/uwsgi/uwsgi.ini"]
+    restart: always
+    volumes:
+      - .:/code
+    environment:
+     - DJANGO_SETTINGS_MODULE=gigma.settings.local
+    develop:
+      watch:
+        - action: sync
+          path: ./gigma
+          target: /code/gigma
+          ignore:
+          - node_modules/
+        - action: rebuild
+          path: package.json
+  nginx:
+    image: nginx:1.23.1
+    restart: always
+    volumes:
+      - ./config/nginx:/etc/nginx/templates
+      - .:/code
+    ports:
+      - "80:80"
+      - "443:443"
