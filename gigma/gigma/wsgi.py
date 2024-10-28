@@ -11,6 +11,9 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gigma.settings')
+if os.getenv('DEV_ENV') == 'TRUE':
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gigma.settings.local')
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gigma.settings.prod')
 
 application = get_wsgi_application()
