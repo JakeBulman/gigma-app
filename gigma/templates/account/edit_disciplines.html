@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Edit Disciplines{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col"></div>
+            <div class="col-6">
+                <h1 class="text-light text-center mb-5">Edit your Disciplines</h1>
+                <p class="text-light text-center">Current Disciplines:</p>
+                <div class="text-center my-3">   
+                    {% for discipline in profile.profile_disciplines.all %}
+                        <div class="text-light text-center my-1"> 
+                            {% if discipline.discipline.discipline_icon %}<img src="{{ discipline.discipline.discipline_icon.url }}" style="height: 50px; width:50px" />{% endif %}
+                            {{ discipline.discipline.discipline_name }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="text-center my-3">   
+                    <button type="button" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#newDisciplineModal" style="border-radius: 20px; width: 200px; text-align:center">+ Add new</button>
+                </div>
+                <div class="text-center">   
+                    <a style="border-radius: 20px; width: 200px; text-align:center" class="btn btn-danger" href="{% url 'edit' %}">Return to Edit Account</a>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="newDisciplineModal" tabindex="-1" aria-labelledby="newDisciplineModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="newDisciplineModalLabel">New Discipline selection</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'edit_disciplines' %}">
+                    {% csrf_token %}
+                    <select class="form-select" name="new_discipline" id="new_discipline" aria-label="Default select example">
+                        {% for discipline in disciplines %}
+                            <option value={{discipline.id}}>{{discipline.discipline_name}}</option>
+                        {% endfor %}
+                    </select>
+                    <button style="border-radius: 20px; width: 200px; text-align:center" class="btn btn-success text-white my-3" type="submit">Add this Discipline</button>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Artists{% endblock %}
+{% block content %}
+<style>
+    .card:hover{
+        border-color:#F3B945;
+        box-shadow: 0 -10px 15px -10px inset #F3B945;
+    }
+    .card{
+        transition: all .5s;
+    }
+    .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #FFF8D5;
+            opacity: 0.75; /* Firefox */
+    }
+</style>
+<div class="container">
+    <div class="col">
+        <div class="row mt-5">
+            <h1 class="text-light text-center">Artists</h1>
+        </div>
+        <form class="row m-5 justify-content-center"> 
+            <div class="col-4">
+                <input name="enquiry_id" id="enquiry_id" type="text" class="form-control bg-dark border-info text-light" placeholder="Search for a profile here...">
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-secondary w-100 bg-gradient">Search</button>
+            </div>
+        </form>
+                
+        <div class="row row-cols-2">
+            {% for profile in profiles %}
+            <div class="col">
+                <div class="card text-start text-white bg-primary bg-gradient border-bottom border-info my-2">
+                    <div class="row">
+                        <div class="col-4 d-flex align-items-center justify-content-center">
+                            <a href="{% url 'profile_details' profile.id %}" class="stretched-link"><img src="{{ profile.profile_picture.url }}" style="height: 100px; width:100px;"/></a>
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title text-light">{{ profile.stage_name }}</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% load static %}
+<style>
+  .navbar{
+      box-shadow: 0 -20px 100px 0 #F3B945;
+  }
+</style>
+<nav class="navbar sticky-top nav-fill navbar-expand-lg navbar-info bg-dark border-bottom border-info">
+  <div class="container-fluid">
+    <a class="navbar-brand fs-3 text-info" href="{% url 'landing_page' %}">
+      <img class="d-inline-block align-text-top" src="{% static 'admin/img/favicon-50.png' %}" style="height: 40px; width:40px; padding:0px;"/>
+      GIGMA
+    </a>
+    
+    <a class="navbar-brand fs-3 text-info" href="{% url 'profile_search' %}"></a>
+    <div class="navbar-nav">
+    <a style="text-align:center" class="nav-link bg-dark me-3 text-white" href="{% url 'event_search' %}">Find Events</a>
+    <a style="text-align:center" class="nav-link bg-dark me-3 text-white" href="{% url 'profile_search' %}">Find Artists</a>
+    {% if request.user.is_authenticated %}
+      <li class="nav-item dropstart me-4" style="height: 40px; width:40px; padding:0px;">
+        <a class="nav-link dropdown-toggle" style="height: 40px; width:40px; padding:0px;" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {% if my_profile.profile_picture != '' %}
+          <img  src="{{ my_profile.profile_picture.url }}" style="height: 40px; width:40px;"/>
+          {% endif %}
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark bg-dark border border-info" aria-labelledby="navbarDropdown">
+          <li><h6 class="dropdown-header">Quick Links</h6></li>
+          <li><a class="dropdown-item" href="{% url 'event_dashboard' %}">My Events</a></li>
+          <li><h6 class="dropdown-header">Account Options</h6></li>
+          <li><a class="dropdown-item" href="{% url 'profile_dashboard' %}">My Account</a></li>
+          <li><a class="dropdown-item" href="{% url 'edit' %}">Edit Account</a></li>
+          <li><form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="dropdown-item" type="submit">Logout</button>
+          </form></li>
+        </ul>
+      </li>
+    {% else %}
+      <li class="nav-item dropstart me-4" style="height: 40px; width:40px; padding:0px;">
+        <a class="nav-link dropdown-toggle" style="height: 40px; width:40px; padding:0px;" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {% if my_profile.profile_picture != '' %}
+          <img  src="{{ my_profile.profile_picture.url }}" style="height: 40px; width:40px;"/>
+          {% endif %}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><h6 class="dropdown-header">Account Options</h6></li>
+          <li><a class="dropdown-item" href="{% url 'register' %}">Sign Up</a></li>
+          <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+        </ul>
+      </li>
+    {% endif %}
+    </div>
+  </div>
+</nav>

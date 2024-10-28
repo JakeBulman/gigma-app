@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Discipline List{% endblock %}
+{% block content %}
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col"></div>
+            <div class="col">
+                <h1 class="text-light text-center mb-5">Discipline List</h1>
+                <div class="text-light">   
+                    {% for discipline in disciplines %}
+                        {% include 'account/discipline_list_recursive.html' with discipline=discipline %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+{% endblock %}

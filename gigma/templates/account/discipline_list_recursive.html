@@ -1,0 +1,18 @@
+
+
+<ul style="padding-left: 30px; padding-top: 20px">
+<li>
+    
+    {% if discipline.discipline_icon %}<img src="{{ discipline.discipline_icon.url }}" style="height: 50px; width:50px" />{% endif %}
+    <span class="text-light">
+    {{ discipline.discipline_name }}
+    </span>
+</li>
+
+{% if discipline.child_discipline %}
+    {% for child_discipline in discipline.child_discipline.all %}
+        {% include 'account/discipline_list_recursive.html' with discipline=child_discipline %}
+    {% endfor %}
+{% endif %}
+
+</ul>

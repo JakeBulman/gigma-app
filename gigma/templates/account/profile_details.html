@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ profile.stage_name }}{% endblock %}
+{% block content %}
+<style>
+    .card:hover{
+        border-color:#F3B945;
+        box-shadow: 0 -10px 15px -10px inset #F3B945;
+    }
+    .card{
+        transition: all .5s;
+    }
+</style>
+<div class="container">
+    <div class="col">
+        <div class="row mt-5">
+            <h1 class="text-light text-center">{{ profile.stage_name }}</h1>
+        </div>               
+        <div class="row">
+            <img src="{{ profile.profile_picture.url }}" style="height: 200px; width:200px; padding: 0px"/>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

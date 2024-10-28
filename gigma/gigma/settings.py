@@ -25,6 +25,10 @@ SECRET_KEY = 'django-insecure-rq^yvn3op2_z%-%ju526(ace!-)o%&g5auysa=irv+b*jka5!0
 
 # Application definition
 
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -61,7 +65,7 @@ ROOT_URLCONF = 'gigma.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates"),BASE_DIR / "gigma/templates", BASE_DIR / "/templates",],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -140,7 +144,7 @@ if os.getenv('DEV_ENV') == 'TRUE':
         }
     }
 else:
-    DEBUG = False
+    DEBUG = True
 
     ALLOWED_HOSTS = ['*']
 
@@ -152,7 +156,7 @@ else:
             'NAME': 'gigma',
             'USER': 'gigma',
             'PASSWORD': 'gigma',
-            'HOST': 'localhost',
+            'HOST': 'host.docker.internal',
             'PORT': '5433',
         }
     }

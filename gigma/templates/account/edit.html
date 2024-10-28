@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Edit account{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col"></div>
+            <div class="col-6">
+                <h1 class="text-light text-center mb-5">Edit your account</h1>
+                <p class="text-light text-center">You can edit your account with the following form:</p>
+                <div class="text-center text-white">   
+                    <form  method="post" enctype="multipart/form-data">
+                        {{ user_form.as_p }}
+                        {{ profile_form.as_p }}
+                        {% csrf_token %}
+                        <p>
+                            <button style="border-radius: 20px; width: 200px; text-align:center" class="btn btn-success text-white mt-3" type="submit">Save Changes</button>
+                        </p>
+                    </form>
+                        <a style="border-radius: 20px; width: 200px; text-align:center" class="btn btn-warning text-white mt-2" href="{% url 'edit_disciplines' %}">Edit Disciplines</a>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}

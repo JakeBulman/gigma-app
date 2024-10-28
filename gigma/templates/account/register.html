@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create an account{% endblock %}
+{% block content %}
+<style>
+    .form-text{
+        color:#F3B945;
+    }
+</style>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col"></div>
+        <div class="col text-center">
+            <div class="card text-white bg-secondary border-info shadow-lg" style="width: 50rem;">
+                <div class="card-header">
+                    <h6 class="card-text">Registration Form</h6>
+                </div>
+                <div class="card-body">
+                    {% crispy form %}
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+    
+{% endblock %}

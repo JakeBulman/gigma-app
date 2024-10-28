@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Event{% endblock %}
+{% block content %}
+<style>
+    .card:hover{
+        border-color:#F3B945;
+        box-shadow: 0 -10px 15px -10px inset #F3B945;
+    }
+    .card{
+        transition: all .5s;
+    }
+</style>
+<div class="container">            
+        <div class="row mt-5">
+            <div class="card text-white bg-primary border-info shadow-lg mt-5 bg-gradient" style="padding-left: 0;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="{{ event.event_picture.url }}" class="img-fluid rounded-start" style="min-height: 100%;">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h3 class="card-title text-light">{{ event.event_name }}</h3>
+                      
+                      <h5 class="card-title text-light">Event Description</h5>
+                      <p class="card-text text-white">{{ event.event_description }}</p>
+                      <p class="card-text text-white">{{ event.event_private_description }}</p>
+                      <p class="card-text"><small class="text-white">{{ event.event_location }} - {{ event.event_website }}</small></p>
+
+                      <h5 class="card-title text-light">Event Staff</h5>
+                      <p class="card-text text-white">Organiser - <img src="{{ event.event_organiser.profile.profile_picture.url }}"  style="height: 40px; width:40px; padding:0px;"> - {{ event.event_organiser }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+</div>
+
+{% endblock %}

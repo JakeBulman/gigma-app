@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Login{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col"></div>
+            <div class="col">
+                <h1 class="text-light text-center mb-5">Login Page</h1>
+                {% if form.errors %}
+                    <p class="text-white text-center">You're username and password did not match. Please try again.</p>
+                {% else %}
+                    <p class="text-white text-center">Please use the following form to log in. If you don't have an account, <a href="{% url 'register' %}">register here</a>.</p>
+                {% endif %}
+                <div class="login-form text-center">   
+                    <form action="{% url 'login' %}" method = "post" class="text-white">
+                        {% csrf_token %}
+                        <div>
+                            <label for="">Username</label>
+                            <input type="text" name="username" id="">
+                        </div>
+                        <div>
+                            <label for="">Password</label>
+                            <input type="password" name="password" id="">
+                        </div>
+                        <input name="next" type="hidden" value="{{ next }}"/>
+                        <p>
+                            <button style="border-radius: 20px; width: 200px; text-align:center" class="btn btn-info text-white my-3" type="submit">Login</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}

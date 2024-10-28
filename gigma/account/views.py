@@ -16,7 +16,7 @@ def dashboard(request):
 		my_profile = Profile.objects.get(user_id=request.user)
 	if request.user.id == None:
         #this is the "public" user
-		my_profile = Profile.objects.get(user_id=9)
+		my_profile = Profile.objects.get(user_id=1)
 	return render(request, "account/dashboard.html",{'section':'dashboard','profile':profile,'media_root': MEDIA_ROOT, 'media_url': MEDIA_URL, 'my_profile':my_profile})
 
 def register(request):
@@ -37,7 +37,7 @@ def register(request):
 		my_profile = Profile.objects.get(user_id=request.user)
 	if request.user.id == None:
         #this is the "public" user
-		my_profile = Profile.objects.get(user_id=9)
+		my_profile = Profile.objects.get(user_id=1)
 	return render(request,'account/register.html',{'form':form, 'my_profile':my_profile})
 
 def login_view(request):
@@ -63,7 +63,7 @@ def login_view(request):
 		my_profile = Profile.objects.get(user_id=request.user)
 	if request.user.id == None:
 		#this is the "public" user
-		my_profile = Profile.objects.get(user_id=9)
+		my_profile = Profile.objects.get(user_id=1)
 	return render(request, 'registration/login.html',{'my_profile':my_profile, 'next': next_url})
 
 def logout_view(request):
@@ -73,7 +73,7 @@ def logout_view(request):
 		my_profile = Profile.objects.get(user_id=request.user)
 	if request.user.id == None:
 		#this is the "public" user
-		my_profile = Profile.objects.get(user_id=9)
+		my_profile = Profile.objects.get(user_id=1)
 	return render(request, 'registration/logged_out.html',{'my_profile':my_profile})
 
 @login_required
@@ -99,7 +99,7 @@ def edit(request):
 		my_profile = Profile.objects.get(user_id=request.user)
 	if request.user.id == None:
         #this is the "public" user
-		my_profile = Profile.objects.get(user_id=9)
+		my_profile = Profile.objects.get(user_id=1)
 	return render(request,'account/edit.html',{'user_form':user_form,'profile_form':profile_form, 'my_profile':my_profile})
 
 @login_required
@@ -120,18 +120,18 @@ def edit_disciplines(request):
 		my_profile = Profile.objects.get(user_id=request.user)
 	if request.user.id == None:
         #this is the "public" user
-		my_profile = Profile.objects.get(user_id=9)
+		my_profile = Profile.objects.get(user_id=1)
 	return render(request,'account/edit_disciplines.html',{'profile':profile,'disciplines':disciplines, 'my_profile':my_profile})
 
 
 def profile_search(request):
-	profiles = Profile.objects.all().exclude(user_id=9)
+	profiles = Profile.objects.all().exclude(user_id=1)
 	my_profile = None
 	if request.user.is_authenticated:
 		my_profile = Profile.objects.get(user_id=request.user)
 	if request.user.id == None:
         #this is the "public" user
-		my_profile = Profile.objects.get(user_id=9)
+		my_profile = Profile.objects.get(user_id=1)
 	return render(request, 'account/profile_search.html',{'section':'dashboard','profiles':profiles, 'my_profile':my_profile})
 
 def profile_details(request, id=None):
@@ -141,7 +141,7 @@ def profile_details(request, id=None):
 		my_profile = Profile.objects.get(user_id=request.user)
 	if request.user.id == None:
         #this is the "public" user
-		my_profile = Profile.objects.get(user_id=9)
+		my_profile = Profile.objects.get(user_id=1)
 	return render(request, 'account/profile_details.html',{'section':'dashboard','profile':profile, 'my_profile':my_profile})
 
 def discipline_list(request):
@@ -151,5 +151,5 @@ def discipline_list(request):
 		my_profile = Profile.objects.get(user_id=request.user)
 	if request.user.id == None:
         #this is the "public" user
-		my_profile = Profile.objects.get(user_id=9)
+		my_profile = Profile.objects.get(user_id=1)
 	return render(request, 'account/discipline_list.html',{'section':'discipline_list','disciplines':disciplines, 'my_profile':my_profile})
