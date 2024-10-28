@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/code
     environment:
-     - DJANGO_SETTINGS_MODULE=gigma.settings.local
+     - DJANGO_SETTINGS_MODULE=gigma.settings
     develop:
       watch:
         - action: sync

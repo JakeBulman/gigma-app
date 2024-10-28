@@ -6,10 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    if os.getenv('DEV_ENV') == 'TRUE':
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gigma.settings.local')
-    else:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gigma.settings.prod')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gigma.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
