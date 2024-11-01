@@ -15,7 +15,8 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
+TAILWIND_APP_NAME = 'theme'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -28,6 +29,10 @@ SECRET_KEY = 'django-insecure-rq^yvn3op2_z%-%ju526(ace!-)o%&g5auysa=irv+b*jka5!0
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+ 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,13 +46,14 @@ INSTALLED_APPS = [
     'main',
     'events',
     'account',
-
+    'theme',
 
     #other apps
     #'compressor',
     #'storages',
     #'crispy_forms',
     #"crispy_bootstrap5",
+    'tailwind',
 ]
 
 MIDDLEWARE = [

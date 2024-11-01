@@ -1,16 +1,28 @@
 {% load static %}
-<style>
+<!-- <style>
   .navbar{
       box-shadow: 0 -20px 100px 0 #F3B945;
   }
-</style>
-<nav class="navbar sticky-top nav-fill navbar-expand-lg navbar-info bg-dark border-bottom border-info">
-  <div class="container-fluid">
-    <a class="navbar-brand fs-3 text-info" href="{% url 'landing_page' %}">
-      <img class="d-inline-block align-text-top" src="{% static 'admin/img/favicon-50.png' %}" style="height: 40px; width:40px; padding:0px;"/>
+</style> -->
+
+<div class="navbar bg-base-100">
+  <div class="navbar-start">
+    <a class="btn btn-ghost text-xl" href="{% url 'landing_page' %}">
+      <img class="" src="{% static 'admin/img/favicon-50.png' %}" style="height: 40px; width:40px; padding:0px;"/>
       GIGMA
     </a>
-    
+  </div>
+  <div class="navbar-end">
+    <a class="btn">Button</a>
+  </div>
+</div>
+
+
+
+<!-- 
+
+<div class="navbar bg-base-100">
+
     <a class="navbar-brand fs-3 text-info" href="{% url 'profile_search' %}"></a>
     <div class="navbar-nav">
     <a style="text-align:center" class="nav-link bg-dark me-3 text-white" href="{% url 'event_search' %}">Find Events</a>
@@ -49,5 +61,5 @@
       </li>
     {% endif %}
     </div>
-  </div>
-</nav>
+
+</div> -->
