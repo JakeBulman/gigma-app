@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="night">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,8 +19,10 @@
   <link rel="icon" type="image/x-icon" href="{% static 'admin/img/favicon-16x16.png' %}">
   <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
-<body class="h-screen flex justify-center items-center">
+<body class="flex flex-col h-screen bg-base-100">
+  <header class="w-screen p-10">
     {% include 'main/main_nav.html' %}
+  </header>
     {% if messages %}
       {% for message in messages %}
         {% if message.tags == "success" %}
@@ -34,8 +36,11 @@
       </div>
       {% endfor %}
     {% endif %}
+    <main class="relative">
     {% block content %}
         
     {% endblock %}
+    </main>
+    <footer></footer>
 </body>
 </html>
