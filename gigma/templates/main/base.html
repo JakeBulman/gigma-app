@@ -19,7 +19,8 @@
   <link rel="icon" type="image/x-icon" href="{% static 'admin/img/favicon-16x16.png' %}">
   <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
-<body class="flex flex-col h-screen bg-base-100">
+<body class="flex flex-col h-screen bg-gradient-to-r from-blue-950 to-indigo-950">
+<!-- <body class="flex flex-col h-screen bg-gradient-to-r from-base-100 to-base-300"> -->
   <header class="w-screen p-10">
     {% include 'main/main_nav.html' %}
   </header>
@@ -36,7 +37,7 @@
       </div>
       {% endfor %}
     {% endif %}
-    <main class="relative">
+    <main class="relative w-screen p-10">
     {% block content %}
         
     {% endblock %}

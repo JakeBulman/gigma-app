@@ -16,6 +16,7 @@ server {
     server_name         www.educaproject.com educaproject.com;
     error_log           stderr warn;
     access_log          /dev/stdout main;
+    client_max_body_size 100M;
 
     location / {
         include /etc/nginx/uwsgi_params;

@@ -3,28 +3,31 @@
 {% block title %}Events{% endblock %}
 {% block content %}
 
-<div class="w-full flex-col items-center">
-    <h1 class="text-primary text-xl">Events</h1>
-    <div class="card bg-base-200 w-96 shadow-xl">
-        <div class="card-body">
-            <form class=""> 
+<div class="flex flex-row gap-8 flex-wrap">
+    <div class="card min-w-96 max-w-lg h-56 bg-primary-content shadow-xl">
+        <div class="card-body items-center text-center">
+            <h2 class="card-title pb-6">Event Search</h2>
+            <div class="card-actions items-center justify-center">
                 <input name="enquiry_id" id="enquiry_id" type="text" class="input input-bordered w-full max-w-xs" placeholder="Search for an event here...">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </form>
+                <button type="submit" class="btn btn-primary w-3/4"><svg style="width:20px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+                  Search</button>
+            </div>
         </div>
     </div>
-</div>
 
 {% for event in events %}
-    <div class="card text-start text-white bg-primary bg-gradient border border-info my-2">
-        <a href="{% url 'event_details' event.id %}" class="stretched-link"><img src="{{ event.event_picture.url }}" style="height: 100px; width:100px;"/></a>
-        <div class="card-body">
+    <div class="card card-compact card-side min-w-96 max-w-lg h-56 bg-secondary-content shadow-xl flex-shrink-0 relative">
+        <figure class="object-cover w-1/2 !items-stretch">
+            <img class="" src="{{ event.event_picture.url }}" alt="Event Image"/>
+        </figure>
+        <div class="card-body w-1/2">
             <h5 class="card-title text-light">{{ event.event_name }}</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
+            <a href="{% url 'event_details' event.id %}" class="after:absolute after:inset-0"></a>
         </div>
     </div>
 {% endfor %}
-
+</div>
 
 {% endblock %}
