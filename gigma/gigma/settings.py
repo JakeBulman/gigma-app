@@ -49,10 +49,7 @@ INSTALLED_APPS = [
     'theme',
 
     #other apps
-    #'compressor',
     #'storages',
-    #'crispy_forms',
-    #"crispy_bootstrap5",
     'tailwind',
 ]
 
@@ -65,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CSRF_TRUSTED_ORIGINS = ["localhost:8000"]
 
 ROOT_URLCONF = 'gigma.urls'
 

@@ -3,7 +3,8 @@
 {% block title %}Events{% endblock %}
 {% block content %}
 
-<div class="flex flex-row gap-8 flex-wrap">
+<div class="flex flex-row gap-8 flex-wrap w-4/5 justify-center">
+
     <div class="card min-w-96 max-w-lg h-56 bg-primary-content shadow-xl">
         <div class="card-body items-center text-center">
             <h2 class="card-title pb-6">Event Search</h2>
@@ -16,7 +17,7 @@
         </div>
     </div>
 
-{% for event in events %}
+    {% for event in events %}
     <div class="card card-compact card-side min-w-96 max-w-lg h-56 bg-secondary-content shadow-xl flex-shrink-0 relative">
         <figure class="object-cover w-1/2 !items-stretch">
             <img class="" src="{{ event.event_picture.url }}" alt="Event Image"/>
@@ -27,7 +28,8 @@
             <a href="{% url 'event_details' event.id %}" class="after:absolute after:inset-0"></a>
         </div>
     </div>
-{% endfor %}
+    {% endfor %}
+    
 </div>
 
 {% endblock %}

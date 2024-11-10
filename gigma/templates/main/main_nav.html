@@ -1,50 +1,52 @@
 {% load static %}
 
-<div class="mx-auto w-full flex justify-center">
-  <div class="navbar relative flex items-center rounded-box bg-accent-content border border-warning shadow-lg shadow-yellow-200 w-4/5">
 
-    <div class="navbar-start justify-between">
-      <a class="btn btn-ghost text-xl text-accent" href="{% url 'landing_page' %}">
-        <img class="" src="{% static 'admin/img/favicon-50.png' %}" style="height:40px; width:40px; padding:0px;"/>
-        GIGMA
-      </a>
-      <a class="btn btn-ghost text-accent" href="{% url 'event_search' %}">Find Events</a>
-    </div>
+<div class="navbar relative flex items-center rounded-box bg-accent-content border border-warning shadow-lg shadow-yellow-200 w-4/5">
 
-    <div class="navbar-center w-24 justify-center">
-      <div class="dropdown flex-none p-1">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar w-24 ">
-          <div class="ring-warning ring-offset-base-100 w-24 rounded-full ring ring-offset-2 absolute overflow-visible left-1/2 -translate-x-1/2 -top-1/2">
-            {% if my_profile.profile_picture != '' %}
-            <img  src="{{ my_profile.profile_picture.url }}"/>
-            {% else %}
-            <span>A</span>
-            {% endif %}
-          </div>
+  <div class="navbar-start justify-between">
+    <a class="btn btn-ghost text-xl text-accent" href="{% url 'landing_page' %}">
+      <img class="" src="{% static 'admin/img/favicon-50.png' %}" style="height:40px; width:40px; padding:0px;"/>
+      GIGMA
+    </a>
+    <a class="btn btn-ghost text-accent" href="{% url 'event_search' %}">Find Events</a>
+  </div>
+
+  <div class="navbar-center w-24 justify-center">
+    <div class="dropdown flex-none p-1">
+      {% if my_profile.profile_picture != '' %}
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar w-24 ">
+        <div class="ring-warning ring-offset-base-100 w-24 rounded-full ring ring-offset-2 absolute overflow-visible left-1/2 -translate-x-1/2 -top-1/2">
+          <img  src="{{ my_profile.profile_picture.url }}"/>
         </div>
-        <ul
-          tabindex="0"
-          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-5 w-52 p-2 shadow absolute left-1/2 -translate-x-1/2 text-center border border-neutral">
-          {% if request.user.is_authenticated %}
-          <li><a class="justify-center" href="{% url 'event_dashboard' %}">My Events</a></li>
-          <li><a class="justify-center" href="{% url 'profile_dashboard' %}">My Account</a></li>
-          <li><a class="justify-center" href="{% url 'edit' %}">Edit Account</a></li>
-          <li><form class="justify-center" method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-          </form></li>
-          {% else %}
-          <li><a href="{% url 'register' %}">Sign Up</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          {% endif %}
-        </ul>
       </div>
+      {% else %}
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder w-24 ">
+        <div class="bg-neutral ring-warning ring-offset-base-100 w-24 rounded-full ring ring-offset-2 absolute overflow-visible left-1/2 -translate-x-1/2 -top-1/2">
+        </div>
+      </div>
+      {% endif %}
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-5 w-52 p-2 shadow absolute left-1/2 -translate-x-1/2 text-center border border-neutral">
+        {% if request.user.is_authenticated %}
+        <li><a class="justify-center" href="{% url 'event_dashboard' %}">My Events</a></li>
+        <li><a class="justify-center" href="{% url 'profile_dashboard' %}">My Account</a></li>
+        <li><a class="justify-center" href="{% url 'edit' %}">Edit Account</a></li>
+        <li><form class="justify-center" method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form></li>
+        {% else %}
+        <li><a href="{% url 'register' %}">Sign Up</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+      </ul>
     </div>
+  </div>
 
-    <div class="navbar-end justify-start">
-      <div class="">
-        <a class="btn btn-ghost text-accent" href="{% url 'profile_search' %}">Find Artists</a>
-      </div>
+  <div class="navbar-end justify-start">
+    <div class="">
+      <a class="btn btn-ghost text-accent" href="{% url 'profile_search' %}">Find Artists</a>
     </div>
   </div>
 </div>

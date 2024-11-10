@@ -19,17 +19,16 @@
   <link rel="icon" type="image/x-icon" href="{% static 'admin/img/favicon-16x16.png' %}">
   <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
-<body class="flex flex-col h-screen bg-gradient-to-r from-blue-950 to-indigo-950">
-<!-- <body class="flex flex-col h-screen bg-gradient-to-r from-base-100 to-base-300"> -->
-  <header class="w-screen p-10">
+<body class="flex flex-col h-full min-h-screen bg-gradient-to-r from-blue-950 to-indigo-950">
+  <header class="w-screen py-10 flex justify-center sticky top-0 z-50">
     {% include 'main/main_nav.html' %}
   </header>
     {% if messages %}
       {% for message in messages %}
         {% if message.tags == "success" %}
-          <div class="bg-success text-center">
+          <div class="bg-success-content text-success text-center">
         {% else %}
-          <div class="bg-warning text-center">
+          <div class="bg-error-content text-error text-center">
         {% endif %}
         <div class="{{ message.tags }}">
           {{ message|safe }}
@@ -37,7 +36,7 @@
       </div>
       {% endfor %}
     {% endif %}
-    <main class="relative w-screen p-10">
+    <main class="relative w-screen py-10 flex justify-center">
     {% block content %}
         
     {% endblock %}

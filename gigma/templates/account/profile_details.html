@@ -17,7 +17,9 @@
             <h1 class="text-light text-center">{{ profile.stage_name }}</h1>
         </div>               
         <div class="row">
+            {% if profile.profile_picture != '' %}
             <img src="{{ profile.profile_picture.url }}" style="height: 200px; width:200px; padding: 0px"/>
+            {% endif %}
         </div>
     </div>
 </div>

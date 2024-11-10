@@ -6,9 +6,9 @@
         <div class="row mt-5">
             <div class="col"></div>
             <div class="col">
-                <h1 class="text-light text-center mb-5">Welcome {{ new_user.first_name }}.</h1>
-                <p class="text-light text-center">Your account has been successfully created.</p>
-                <p class="text-light text-center">You can <a href="{% url 'login' %}">log in here</a>.</p>
+                <h1 class="text-center mb-5">Welcome {{ new_user.first_name }}.</h1>
+                <p class="text-center">Your account has been successfully created.</p>
+                <p class="text-center">You can <a class="text-primary" href="{% url 'login' %}">log in here</a>.</p>
             </div>
             <div class="col"></div>
         </div>
