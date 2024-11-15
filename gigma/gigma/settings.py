@@ -12,17 +12,23 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from os.path import join, dirname
+from dotenv import load_dotenv, find_dotenv
+
+import json
+import boto3
+
+load_dotenv(find_dotenv())
+
+# Load all env variables from secrets manager
+secret_name = os.getenv('SECRET_LOCATION')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 TAILWIND_APP_NAME = 'theme'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rq^yvn3op2_z%-%ju526(ace!-)o%&g5auysa=irv+b*jka5!0'
 
 # Application definition
 
@@ -63,25 +69,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_TRUSTED_ORIGINS = ["localhost:8000"]
+#CSRF_TRUSTED_ORIGINS = ["localhost:8000"]
 
-ROOT_URLCONF = 'gigma.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates"),BASE_DIR / "gigma/templates", BASE_DIR / "/templates",],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
 
 WSGI_APPLICATION = 'gigma.wsgi.application'
 
@@ -117,24 +107,43 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
-
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-if os.getenv('DEV_ENV') == 'TRUE':
-    DEBUG = True
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
+if os.getenv('DEV_ENV') == 'TRUE':
+    print('DEV is on')
+    ### DEVELOPMENT ###
+    DEBUG = True
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = 'django-insecure-rq^yvn3op2_z%-%ju526(ace!-)o%&g5auysa=irv+b*jka5!0'
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    print(BASE_DIR)
     ALLOWED_HOSTS = ['*']
+
+    ROOT_URLCONF = 'gigma.urls'
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(BASE_DIR, "templates"),BASE_DIR / "gigma/templates", BASE_DIR / "/templates",],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
+        },
+    ]
 
     # Database
     # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -148,21 +157,80 @@ if os.getenv('DEV_ENV') == 'TRUE':
             'PORT': '5433',
         }
     }
+
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/5.1/howto/static-files/
+
+    STATIC_ROOT = ''
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = ('static',)
+
+    MEDIA_URL = 'media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
+
 else:
+    ### PRODUCTION ###
     DEBUG = True
 
-    ALLOWED_HOSTS = ['*']
+    #CSRF_TRUSTED_ORIGINS = ["localhost:8000"]
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost','13.51.169.173','gigma.co.uk','www.gigma.co.uk']
 
+    ROOT_URLCONF = 'gigma.urls'
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(BASE_DIR, "templates"),BASE_DIR / "gigma/templates", BASE_DIR / "/templates",],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
+        },
+    ]
+
+    print('S3 is on')
+    region_name = 'eu-north-1'
+    session = boto3.session.Session(aws_access_key_id=os.getenv('AWS_SERVER_PUBLIC_KEY'),aws_secret_access_key=os.getenv('AWS_SERVER_SECRET_KEY'))
+    client = session.client(
+        service_name='secretsmanager',
+        region_name=region_name
+    )
+    secrets = client.get_secret_value(SecretId=secret_name)
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = json.loads(secrets['SecretString'])['SECRET_KEY'],
     # Database
     # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'gigma',
-            'USER': 'gigma',
-            'PASSWORD': 'gigma',
-            'HOST': 'host.docker.internal',
-            'PORT': '5433',
+            'NAME': json.loads(secrets['SecretString'])['DB_NAME'],
+            'USER': json.loads(secrets['SecretString'])['POSTGRES_USER'],
+            'PASSWORD': json.loads(secrets['SecretString'])['DB_PASSWORD'],
+            'HOST': json.loads(secrets['SecretString'])['DB_HOST'],
+            'PORT': '5432',
         }
-    }
+    }   
 
+    AWS_ACCESS_KEY_ID = json.loads(secrets['SecretString'])['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = json.loads(secrets['SecretString'])['AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = json.loads(secrets['SecretString'])['AWS_STORAGE_BUCKET_NAME']
+    AWS_S3_SIGNATURE_NAME = json.loads(secrets['SecretString'])['AWS_S3_SIGNATURE_NAME']
+    AWS_S3_REGION_NAME = json.loads(secrets['SecretString'])['AWS_S3_REGION_NAME']
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    AWS_S3_VERITY = True
+    AWS_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATIC_ROOT = 'storages.backends.s3boto3.S3Boto3Storage'
+
+    MEDIA_URL = 'media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
