@@ -8,15 +8,6 @@ services:
       - .:/code
     environment:
      - DJANGO_SETTINGS_MODULE=gigma.settings
-    develop:
-      watch:
-        - action: sync
-          path: ./gigma
-          target: /code/gigma
-          ignore:
-          - node_modules/
-        - action: rebuild
-          path: package.json
   nginx:
     image: nginx:1.23.1
     restart: always
