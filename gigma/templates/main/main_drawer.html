@@ -1,0 +1,21 @@
+{% load static %}
+
+<div class="drawer-side !z-40">
+    <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+    <ul class="menu items-start sm:items-end text-accent min-h-full w-5/6 pt-32 px-10 bg-accent-content border-s border-warning">
+      <li><a class="btn btn-ghost" href="{% url 'event_search' %}">Find Events</a></li>
+      <li><a class="btn btn-ghost" href="{% url 'profile_search' %}">Find Artists</a></li>
+      {% if request.user.is_authenticated %}
+      <li><a class="btn btn-ghost" href="{% url 'event_dashboard' %}">My Events</a></li>
+      <li><a class="btn btn-ghost" href="{% url 'profile_dashboard' %}">My Account</a></li>
+      <li><a class="btn btn-ghost" href="{% url 'edit' %}">Edit Account</a></li>
+      <li><form class="btn btn-ghost" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="" type="submit">Logout</button>
+      </form></li>
+      {% else %}
+      <li><a class="btn btn-ghost" href="{% url 'register' %}">Sign Up</a></li>
+      <li><a class="btn btn-ghost" href="{% url 'login' %}">Login</a></li>
+      {% endif %}
+    </ul>
+  </div>

@@ -3,9 +3,9 @@
 {% block title %}Artists{% endblock %}
 {% block content %}
 
-<div class="flex flex-row gap-8 flex-wrap w-4/5 justify-center">
+<div class="flex flex-row gap-8 flex-wrap w-5/6 justify-center">
 
-    <div class="card min-w-96 max-w-lg h-56 bg-primary-content shadow-xl">
+    <div class="card w-full sm:min-w-96 sm:max-w-lg sm:h-56 bg-primary-content shadow-xl">
         <div class="card-body items-center text-center">
             <h2 class="card-title pb-6">Artist Search</h2>
             <div class="card-actions items-center justify-center">
@@ -18,19 +18,24 @@
     </div>
 
     {% for profile in profiles %}
-    <div class="card card-compact card-side min-w-96 max-w-lg h-56 bg-secondary-content shadow-xl flex-shrink-0 relative">
+    <div class="card card-compact sm:card-side w-full sm:min-w-96 sm:max-w-lg sm:h-56 bg-secondary-content shadow-xl flex-shrink-0 relative">
         {% if profile.profile_picture != '' %}
-        <figure class="object-cover w-1/2 !items-stretch">
-            <img class="" src="{{ profile.profile_picture.url }}" alt="Artist Image"/>
+        <figure class="h-1/2 sm:h-full w-full sm:w-1/2">
+            <img class="object-cover h-full w-full aspect-[4/3]" src="{{ profile.profile_picture.url }}" alt="Artist Image"/>
         </figure>
         {% endif %}
-        <div class="card-body w-1/2">
-            <h5 class="card-title text-light">{{ profile.stage_name }}</h5>
+        <div class="card-body h-1/2 sm:h-full w-full sm:w-1/2">
+            <h5 class="card-title">{{ profile.stage_name }}</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             <a href="{% url 'profile_details' profile.id %}" class="after:absolute after:inset-0"></a>
         </div>
     </div>
     {% endfor %}
+    
+
+
+
+
     
 </div>
 
