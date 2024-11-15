@@ -5,15 +5,17 @@ upstream uwsgi_app {
 
 server {
     listen              80;
-    server_name         www.educaproject.com educaproject.com;
+    server_name         www.gigma.com gigma.com;
     return 301 https://$host$request_uri;
     }
 
 server {
     listen              443 ssl;
-    ssl_certificate     /code/gigma/ssl/educa.crt;
-    ssl_certificate_key /code/gigma/ssl/educa.key;
-    server_name         www.educaproject.com educaproject.com;
+    ssl_certificate /etc/letsencrypt/live/my.website.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/my.website.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    server_name         www.gigma.com gigma.com;
     error_log           stderr warn;
     access_log          /dev/stdout main;
     client_max_body_size 100M;
