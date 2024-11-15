@@ -5,17 +5,20 @@ upstream uwsgi_app {
 
 server {
     listen              80;
+    listen              [::]:80;
     server_name         www.gigma.com gigma.com;
     return 301 https://$host$request_uri;
     }
 
 server {
     listen              443 ssl;
-    ssl_certificate /etc/letsencrypt/live/my.website.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/my.website.com/privkey.pem;
+    listen              [::]:443 ssl;
+    server_name         www.gigma.com gigma.com;
+    ssl_certificate /etc/letsencrypt/live/gigma.co.uk/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/gigma.co.uk/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-    server_name         www.gigma.com gigma.com;
+    
     error_log           stderr warn;
     access_log          /dev/stdout main;
     client_max_body_size 100M;
