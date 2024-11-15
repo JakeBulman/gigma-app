@@ -10,6 +10,8 @@ services:
      - DJANGO_SETTINGS_MODULE=gigma.settings
   nginx:
     image: nginx:1.23.1
+    depends_on:
+      - web
     restart: always
     volumes:
       - ./config/nginx:/etc/nginx/templates
