@@ -16,8 +16,10 @@ services:
     volumes:
       - ./config/nginx:/etc/nginx/templates
       - .:/code
-      # - ./certbot/www/:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/letsencrypt/:ro
+      - /etc/letsencrypt/live/gigma.co.uk/fullchain.pem:/etc/letsencrypt/live/gigma.co.uk/fullchain.pem
+      - /etc/letsencrypt/live/gigma.co.uk/privkey.pem:/etc/letsencrypt/live/gigma.co.uk/privkey.pem
+      - /etc/letsencrypt/options-ssl-nginx.conf:/etc/letsencrypt/options-ssl-nginx.conf
+      - /etc/letsencrypt/ssl-dhparams.pem:/etc/letsencrypt/ssl-dhparams.pem
     ports:
       - "80:80"
       - "443:443"
