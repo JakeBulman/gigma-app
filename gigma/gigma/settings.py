@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'theme',
 
     #other apps
-    #'storages',
+    'storages',
     'tailwind',
 ]
 
@@ -163,7 +163,7 @@ if os.getenv('DEV_ENV') == 'TRUE':
 
     STATIC_ROOT = ''
     STATIC_URL = '/static/'
-    STATICFILES_DIRS = ('static',)
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
     MEDIA_URL = 'media/'
     MEDIA_ROOT = BASE_DIR / 'media'
@@ -231,6 +231,7 @@ else:
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATIC_ROOT = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
     MEDIA_URL = 'media/'
     MEDIA_ROOT = BASE_DIR / 'media'
