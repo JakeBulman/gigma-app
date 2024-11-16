@@ -12,3 +12,4 @@ node_modules/
 *.sqlite3
 *.pyc
 *.png
+*.env
