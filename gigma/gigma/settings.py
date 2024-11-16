@@ -233,7 +233,7 @@ else:
         },
 
         "staticfiles":  {
-            "BACKEND" : "'gigma.storage_backends.StaticStorage'",
+            "BACKEND" : "gigma.storage_backends.StaticStorage",
         },
     }
     # s3 static settings
