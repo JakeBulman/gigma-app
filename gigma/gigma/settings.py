@@ -229,11 +229,11 @@ else:
     AWS_S3_VERITY = True
     STORAGES = {
         "default": {
-            "BACKEND" : "hello_django.storage_backends.PublicMediaStorage",
+            "BACKEND" : "gigma.storage_backends.PublicMediaStorage",
         },
 
         "staticfiles":  {
-            "BACKEND" : "'hello_django.storage_backends.StaticStorage'",
+            "BACKEND" : "'gigma.storage_backends.StaticStorage'",
         },
     }
     # s3 static settings
