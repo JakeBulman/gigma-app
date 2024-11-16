@@ -227,19 +227,20 @@ else:
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     AWS_S3_VERITY = True
-    AWS_LOCATION = 'static'
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STORAGES = {
         "default": {
-            "BACKEND" : "storages.backends.s3boto3.S3StaticStorage",
+            "BACKEND" : "hello_django.storage_backends.PublicMediaStorage",
         },
 
         "staticfiles":  {
-            "BACKEND" : "storages.backends.s3boto3.S3StaticStorage",
+            "BACKEND" : "'hello_django.storage_backends.StaticStorage'",
         },
     }
-    STATIC_ROOT = 'storages.backends.s3boto3.S3Boto3Storage'
+    # s3 static settings
+    STATIC_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-    MEDIA_URL = 'media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
