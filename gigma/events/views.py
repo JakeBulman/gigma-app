@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Event
 from account.models import Profile
-from gigma.settings import MEDIA_ROOT, MEDIA_URL
+from gigma.settings import MEDIA_URL
 
 # Create your views here.
 @login_required
@@ -17,7 +17,7 @@ def dashboard(request):
 	if request.user.id == None:
         #this is the "public" user
 		my_profile = Profile.objects.get(user_id=1)
-	return render(request, "events/dashboard.html",{'section':'dashboard','events':events,'media_root': MEDIA_ROOT, 'media_url': MEDIA_URL, 'my_profile':my_profile})
+	return render(request, "events/dashboard.html",{'section':'dashboard','events':events, 'media_url': MEDIA_URL, 'my_profile':my_profile})
 
 def event_search(request):
 	events = Event.objects.all()

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from account.models import Profile
-from gigma.settings import MEDIA_ROOT, MEDIA_URL
+from gigma.settings import MEDIA_URL
 
 # Create your views here.
 def landing_page(request):
@@ -13,4 +13,4 @@ def landing_page(request):
         my_profile = Profile.objects.get(user_id=1)
         
           		
-    return render(request, "main/landing_page.html",{'section':'landing_page','media_root': MEDIA_ROOT, 'media_url': MEDIA_URL, 'my_profile':my_profile})
+    return render(request, "main/landing_page.html",{'section':'landing_page', 'media_url': MEDIA_URL, 'my_profile':my_profile})

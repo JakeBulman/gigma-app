@@ -4,7 +4,7 @@ from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm
 from .models import Profile, Discipline, ProfileDisciplines
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
-from gigma.settings import MEDIA_ROOT, MEDIA_URL
+from gigma.settings import MEDIA_URL
 from django.urls import is_valid_path
 from urllib.parse import urlparse
 
@@ -17,7 +17,7 @@ def dashboard(request):
 	if request.user.id == None:
         #this is the "public" user
 		my_profile = Profile.objects.get(user_id=1)
-	return render(request, "account/dashboard.html",{'section':'dashboard','profile':profile,'media_root': MEDIA_ROOT, 'media_url': MEDIA_URL, 'my_profile':my_profile})
+	return render(request, "account/dashboard.html",{'section':'dashboard','profile':profile, 'media_url': MEDIA_URL, 'my_profile':my_profile})
 
 def register(request):
 	if request.method == 'POST':
