@@ -9,6 +9,7 @@ RUN pip install uwsgi
 #Environment Variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PGSSLCERT /tmp/postgresql.crt
 
 RUN mkdir /code
 WORKDIR /code
