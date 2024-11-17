@@ -8,7 +8,7 @@
         <div class="card-body items-center text-center">
             <h2 class="card-title pb-6">Update</h2>
             <div class="card-actions items-center justify-center">
-                <form class="w-full" method="POST" action="{% url 'register' %}">
+                <form class="w-full" method="POST" action="{% url 'edit' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="fieldWrapper justify-content-center align-items-center flex-nowrap">
                         <label class="input input-bordered flex items-center gap-2 mb-2">

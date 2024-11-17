@@ -56,6 +56,7 @@ class ProfileEditForm(forms.ModelForm):
         fields = ['stage_name', 'date_of_birth', 'website_link', 'user_about', 'profile_picture']
 
     def clean_profile_picture(self):
+        print(self.cleaned_data['profile_picture'])
         im = Image.open(self.cleaned_data['profile_picture'])
         thumb_width = 500
 

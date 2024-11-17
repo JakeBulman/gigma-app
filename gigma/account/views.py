@@ -79,6 +79,7 @@ def logout_view(request):
 @login_required
 def edit(request):
 	if request.method == 'POST':
+		print(request.FILES)
 		user_form = UserEditForm(instance=request.user,data=request.POST,prefix="user")
 		profile_form = ProfileEditForm(instance=request.user.profile,data=request.POST,files=request.FILES,prefix="profile")
 		if user_form.is_valid() and profile_form.is_valid():

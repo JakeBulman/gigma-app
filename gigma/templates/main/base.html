@@ -18,12 +18,20 @@
   <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
   <link rel="icon" type="image/x-icon" href="{% static 'admin/img/favicon-16x16.png' %}">
   <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+  <style>
+    html {
+      scrollbar-gutter: auto !important;
+    }
+    html:has(body.content-overflow-y) {
+      scrollbar-gutter: stable !important;
+    }
+  </style>
 </head>
-<body class="flex flex-col h-full min-h-screen bg-gradient-to-r from-blue-900 to-indigo-950">
+<body class="flex flex-col h-full min-h-screen bg-gradient-to-r from-primary-content to-indigo-950">
   <header class="w-screen flex justify-center sticky top-0 mb-14 !z-50">
     {% include 'main/main_nav.html' %}
   </header>
-  <div class="drawer drawer-end">
+  <div class="drawer drawer-end w-full">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
         {% if messages %}
