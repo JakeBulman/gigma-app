@@ -14,9 +14,6 @@ def dashboard(request):
 	my_profile = None
 	if request.user.is_authenticated:
 		my_profile = Profile.objects.get(user_id=request.user)
-	if request.user.id == None:
-        #this is the "public" user
-		my_profile = Profile.objects.get(user_id=1)
 	return render(request, "events/dashboard.html",{'section':'dashboard','events':events, 'media_url': MEDIA_URL, 'my_profile':my_profile})
 
 def event_search(request):
@@ -24,9 +21,6 @@ def event_search(request):
 	my_profile = None
 	if request.user.is_authenticated:
 		my_profile = Profile.objects.get(user_id=request.user)
-	if request.user.id == None:
-        #this is the "public" user
-		my_profile = Profile.objects.get(user_id=1)
 	return render(request, 'events/event_search.html',{'section':'dashboard','events':events, 'my_profile':my_profile})
 
 def event_details(request, id=None):
@@ -34,9 +28,6 @@ def event_details(request, id=None):
 	my_profile = None
 	if request.user.is_authenticated:
 		my_profile = Profile.objects.get(user_id=request.user)
-	if request.user.id == None:
-        #this is the "public" user
-		my_profile = Profile.objects.get(user_id=1)
 	return render(request, 'events/event_details.html',{'section':'dashboard','event':event, 'my_profile':my_profile})
 
 # def new_event(request):

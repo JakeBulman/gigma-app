@@ -8,7 +8,7 @@
     </a>
   </div>
   <div class="navbar-end w-1/2">
-    {% if my_profile.profile_picture != '' %}
+    {% if my_profile.profile_picture != '' and my_profile != None %}
     <label tabindex="0" role="button" for="my-drawer-4" class="drawer-button avatar bg-accent-content bg-transparent border-transparent me-3 mt-3">
       <div class="bg-neutral ring-warning w-24 rounded-full ring ring-offset-0 absolute overflow-visible top-0 right-0">
         <img  src="{{ my_profile.profile_picture.url }}"/>
