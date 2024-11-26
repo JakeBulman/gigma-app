@@ -27,10 +27,7 @@
     }
   </style>
 </head>
-<body class="flex flex-col h-full min-h-screen bg-gradient-to-r from-primary-content to-indigo-950">
-  <header class="w-screen flex justify-center sticky top-0 mb-14 !z-50">
-    {% include 'main/main_nav.html' %}
-  </header>
+<body class="flex flex-col h-screen bg-gradient-to-r from-primary-content to-indigo-950">
   <div class="drawer drawer-end w-full">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
@@ -47,15 +44,16 @@
           </div>
           {% endfor %}
         {% endif %}
-        <main class="relative w-screen flex justify-center">
+        <main class="w-screen flex justify-center mt-4">
         {% block content %}
             
         {% endblock %}
         </main>
-        <footer></footer>
     </div>
     {% include 'main/main_drawer.html' %}
   </div>
-
+  <footer class="w-screen justify-center !z-50 fixed inset-x-0 bottom-0">
+    {% include 'main/main_nav.html' %}
+  </footer>
 </body>
 </html>
