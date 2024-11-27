@@ -2,20 +2,20 @@
 
 <div class="drawer-side w-screen !z-40">
     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-    <ul class="menu items-end min-h-full w-full pt-32 px-10 bg-neutral text-primary">
-      <li class="w-full h-16"><a class="btn btn-ghost sm:justify-around text-xl h-full" href="{% url 'event_search' %}">Find Events</a></li>
-      <li class="w-full h-16"><a class="btn btn-ghost sm:justify-around text-xl h-full" href="{% url 'profile_search' %}">Find Artists</a></li>
+    <div class="flex flex-col-reverse min-h-full w-full pb-40 px-10 bg-neutral text-primary">
       {% if request.user.is_authenticated %}
-      <li class="w-full h-16"><a class="btn btn-ghost sm:justify-around text-xl h-full" href="{% url 'event_dashboard' %}">My Events</a></li>
-      <li class="w-full h-16"><a class="btn btn-ghost sm:justify-around text-xl h-full" href="{% url 'profile_dashboard' %}">My Account</a></li>
-      <li class="w-full h-16"><a class="btn btn-ghost sm:justify-around text-xl h-full" href="{% url 'edit' %}">Edit Account</a></li>
-      <li class="w-full h-16 mt-10"><form class="btn btn-ghost sm:justify-around text-xl h-full" method="post" action="{% url 'logout' %}">
+      <form class="btn btn-ghost sm:justify-around text-xl h-16 mt-10" method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button class="" type="submit">Logout</button>
-      </form></li>
+      </form>
+      <a class="btn btn-ghost sm:justify-around text-xl h-16" href="{% url 'event_dashboard' %}">My Events</a>
+      <a class="btn btn-ghost sm:justify-around text-xl h-16" href="{% url 'profile_dashboard' %}">My Account</a>
+      <a class="btn btn-ghost sm:justify-around text-xl h-16" href="{% url 'edit' %}">Edit Account</a>
       {% else %}
-      <li class="w-full h-16 mt-10"><a class="btn btn-ghost sm:justify-around text-xl h-full" href="{% url 'register' %}">Sign Up</a></li>
-      <li class="w-full h-16"><a class="btn btn-ghost sm:justify-around text-xl h-full" href="{% url 'login' %}">Login</a></li>
+      <a class="btn btn-ghost sm:justify-around text-xl h-16" href="{% url 'register' %}">Sign Up</a>
+      <a class="btn btn-ghost sm:justify-around text-xl h-16 mt-10" href="{% url 'login' %}">Login</a>
       {% endif %}
-    </ul>
+      <a class="btn btn-ghost sm:justify-around text-xl h-16" href="{% url 'event_search' %}">Find Events</a>
+      <a class="btn btn-ghost sm:justify-around text-xl h-16" href="{% url 'profile_search' %}">Find Artists</a>
+    </div>
   </div>
