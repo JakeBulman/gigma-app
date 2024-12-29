@@ -2,34 +2,28 @@
 
 <div class="absolute w-full left-1/2 -top-3 transform -translate-x-1/2">
   <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
-    <circle r="1000" cx="50%" cy="1000" fill="white" opacity="0.3"/>
+    <circle r="280" cx="100%" cy="300" fill="black" opacity="0.25"/>
   </svg>
 </div>
-<div class="navbar relative flex bg-transparent items-start">
-  <div class="navbar-start w-1/3 flex-1 justify-end">
-    <a class="rounded-full text-xl text-base-content bg-secondary-content border-2 border-warning p-4" href="{% url 'landing_page' %}">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-8">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-      </svg>
-      </a>
+<div class="navbar relative flex bg-transparent items-start !p-4">
+  <div class="navbar-start w-1/2 flex-1">
   </div>
-  <div class="navbar-center w-36 flex-none justify-center h-16">
+  <div class="navbar-end w-1/2 flex-1 justify-end items-end">
+    <a class="rounded-full text-xl text-base-content bg-secondary-content border-2 border-gray-400 p-2 me-4" href="{% url 'landing_page' %}">
+      <img class="size-6" src="{% static 'admin/img/favicon-50.png' %}"/></a>
     {% if my_profile.profile_picture != '' and my_profile != None %}
-    <label tabindex="0" role="button" for="my-drawer-4" class="drawer-button avatar bg-accent-content bg-transparent border-transparent bottom-0 h-full w-1">
-      <div class="bg-neutral ring-warning w-28 rounded-full ring ring-offset-0 absolute overflow-visible bottom-0 left-1/2 transform -translate-x-1/2">
+    <label tabindex="0" role="button" for="my-drawer-4" class="drawer-button avatar bg-accent-content bg-transparent border-transparent">
+      <div class="bg-neutral ring-gray-400 w-24 rounded-full ring ring-offset-0 overflow-visible">
         <img  src="{{ my_profile.profile_picture.url }}"/>
       </div>
     </label>
     {% else %}
-    <label tabindex="0" role="button" for="my-drawer-4" class="drawer-button avatar bg-accent-content bg-transparent border-transparent bottom-0 h-full w-1">
-      <div class="bg-neutral ring-warning w-28 rounded-full ring ring-offset-0 absolute overflow-visible bottom-0 left-1/2 transform -translate-x-1/2">
+    <label tabindex="0" role="button" for="my-drawer-4" class="drawer-button avatar bg-accent-content bg-transparent border-transparent">
+      <div class="bg-neutral ring-gray-400 w-24 rounded-full ring ring-offset-0 overflow-visible">
       </div>
     </label>
     {% endif %}
   </div>
-  <div class="navbar-end w-1/3 flex-1 justify-start">
-    <a class="rounded-full text-xl text-base-content bg-secondary-content border-2 border-warning p-4" href="{% url 'landing_page' %}">
-      <img class="size-8" src="{% static 'admin/img/favicon-50.png' %}"/></a>
-  </div>
+
 </div>
 

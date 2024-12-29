@@ -150,11 +150,11 @@ if os.getenv('DEV_ENV') == 'TRUE':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'gigma',
-            'USER': 'gigma',
-            'PASSWORD': 'gigma',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
             'HOST': 'localhost',
-            'PORT': '5433',
+            'PORT': '5432',
         }
     }
 
