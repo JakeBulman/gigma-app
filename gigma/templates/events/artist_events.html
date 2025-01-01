@@ -3,24 +3,54 @@
 
 {% block title %}Event Dashboard{% endblock %}
 {% block content %}
-<style>
-    .card:hover{
-        border-color:#F3B945;
-        box-shadow: 0 -10px 15px -10px inset #F3B945;
-    }
-    .card{
-        transition: all .5s;
-    }
-</style>
-<div class="container-fluid">
-    <div class="row mt-5">
-        <h1 class="text-light text-center mb-5">My Events</h1>
+
+<div class="flex h-full p-4">
+    <h1 class="text-2xl">My Events</h1>
+</div>
+
+<div class="flex carousel carousel-center bg-base-300 w-full space-x-4 p-4">
+    <div class="carousel-item">
+        <div class="card card-compact bg-base-100 image-full w-48 shadow-xl">
+            <figure>
+              <img
+                src="https://images.pexels.com/photos/319934/pexels-photo-319934.jpeg"
+                alt="New event" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">Find Roles</h2>
+              <p>Find roles being casted here.</p>
+              <div class="card-actions justify-end">
+                <button class="btn btn-secondary">Open Casting</button>
+              </div>
+            </div>
+        </div>
     </div>
-    <div class="row mb-1">
-        <div class="col-3">
+    {% if events %}
+    {% for event in events %}
+    <div class="carousel-item">
+        <div class="card card-compact bg-base-100 image-full w-64 shadow-xl">
+            <figure>
+              <img
+                src={{ event.event_picture.url }}
+                alt="Shoes" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">{{ event.event_name }}</h2>
+              <p>{{ event.event_datetime}}</p>
+              <div class="card-actions justify-end">
+                <a class="btn btn-primary" href="{% url 'event_details' event.id %}">Open</a>
+              </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% comment %} 
             <div class="card text-start text-white bg-secondary bg-gradient border-light my-1">
-                <div class="row">
-                    <div class="col-4 d-flex">
+
                         <a href="" class="stretched-link"><img src="{% static 'admin/img/new_event_icon.png' %}" class="img-fluid rounded-start" style="height: 100px; width:100px;"/></a>
                     </div>
                     <div class="col-8">
@@ -100,6 +130,6 @@
             {% endif %}
         </div>
     </div>
-</div>
+</div> {% endcomment %}
 
 {% endblock %}

@@ -1,0 +1,46 @@
+<div class="carousel carousel-center bg-none w-full space-x-4 p-4">
+    <div class="carousel-item">
+        <div class="card card-compact bg-base-100 image-full w-48 shadow-xl">
+            <figure>
+            <img
+                src="https://images.pexels.com/photos/976866/pexels-photo-976866.jpeg"
+                alt="New event" />
+            </figure>
+            <div class="card-body">
+            <h2 class="card-title">Event Creator</h2>
+            <p>Start a new event here.</p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-primary btn-outline glass" href="{% url 'new_event' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    New Event</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% if events %}
+    {% for event in events %}
+    <div class="carousel-item">
+        <div class="card card-compact bg-base-100 image-full w-48 h-40 shadow-xl">
+            <figure>
+            <img
+                src={{ event.event_picture.url }}
+                alt="Event Picture" />
+            </figure>
+            <div class="card-body">
+            <h2 class="card-title">{{ event.event_name }}</h2>
+            <p>{{ event.event_datetime}}</p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-neutral-content btn-outline glass" href="{% url 'organiser_event' event.id %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3" />
+                    </svg>
+                    Open</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>

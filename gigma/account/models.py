@@ -13,6 +13,7 @@ class Profile(models.Model):
     website_link = models.TextField(blank=True, null=True)
     user_about = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
+    account_type = models.CharField(max_length=3,choices={"ART":"Artist","ORG":"Organiser","PUB":"Public"},null=True)
     #portfolio pictures as a seperate model? (this allows for title and description)
     #portfolio audio as a seperate model? (this allows for title and description)
     #portfolio video as a seperate model? (this allows for title and description)
