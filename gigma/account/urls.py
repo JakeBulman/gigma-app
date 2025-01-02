@@ -17,6 +17,9 @@ path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(), name=
 path('register/', views.register, name='register'),
 path('edit/', views.edit, name='edit'),
 path('edit-disciplines/', views.edit_disciplines, name='edit_disciplines'),
+path('delete-profile-disciplines/<int:id>', views.delete_profile_discipline, name='delete_profile_discipline'),
+path('raise-priority-profile-disciplines/<int:id>', views.raise_priority_profile_discipline, name='raise_priority_profile_discipline'),
+path('lower-priority-profile-disciplines/<int:id>', views.lower_priority_profile_discipline, name='lower_priority_profile_discipline'),
 
 #user views
 path('profile-search/', views.profile_search, name='profile_search'),

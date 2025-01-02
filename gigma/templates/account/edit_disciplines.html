@@ -2,52 +2,51 @@
 
 {% block title %}Edit Disciplines{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col"></div>
-            <div class="col-6">
-                <h1 class="text-light text-center mb-5">Edit your Disciplines</h1>
-                <p class="text-light text-center">Current Disciplines:</p>
-                <div class="text-center my-3">   
-                    {% for discipline in profile.profile_disciplines.all %}
-                        <div class="text-light text-center my-1"> 
-                            {% if discipline.discipline.discipline_icon %}<img src="{{ discipline.discipline.discipline_icon.url }}" style="height: 50px; width:50px" />{% endif %}
-                            {{ discipline.discipline.discipline_name }}
-                        </div>
+
+<div class="w-5/6">
+    <h1 class="text-2xl pb-5">Edit disciplines</h1>
+    <div class="text-center my-3">   
+        <button class="btn btn-success w-4/5 mt-5" onclick="newDisciplineModal.showModal()">Add New</button>
+    </div>
+    <div class="text-center">   
+        <a class="btn btn-warning w-4/5 my-5" href="{% url 'edit' %}">Return to Edit Account</a>
+    </div>
+    <p class="text-xl pb-3">Current disciplines:</p>
+    <div class="text-center py-3">   
+        {% for discipline in current_disciplines %}
+            <div class="py-1 flex flex-nowrap items-center justify-evenly"> 
+                {% if discipline.discipline.discipline_icon %}<img src="{{ discipline.discipline.discipline_icon.url }}" style="height: 50px; width:50px" />{% endif %}
+                <h1 class="w-1/2">{{ discipline.discipline.discipline_name }}</h1>
+                <a class="btn btn-info btn-xs" href="{% url 'raise_priority_profile_discipline' discipline.pk %}" {% if discipline.profile_discipline_order == 1 %}disabled{% endif %}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" /></svg></a>
+                <a class="btn btn-info btn-xs" href="{% url 'lower_priority_profile_discipline' discipline.pk %}" {% if discipline.profile_discipline_order == max_priority %}disabled{% endif %}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" /></svg></a>
+                <a class="btn btn-error btn-xs" href="{% url 'delete_profile_discipline' discipline.pk %}"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg></a></div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<dialog id="newDisciplineModal" class="modal">
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+    <div class="modal-box">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold">New Discipline selection</h3>
+        <div class="modal-action">
+            <form method="post" action="{% url 'edit_disciplines' %}">
+                {% csrf_token %}
+                <select class="select select-lg select-bordered w-full max-w-xs py-3" name="new_discipline" id="new_discipline" aria-label="Default select example">
+                    <option disabled selected>Please choose a discipline</option>
+                    {% for discipline in available_disciplines %}
+                        <option value={{discipline.id}}>{{discipline.discipline_name}}</option>
                     {% endfor %}
-                </div>
-                <div class="text-center my-3">   
-                    <button type="button" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#newDisciplineModal" style="border-radius: 20px; width: 200px; text-align:center">+ Add new</button>
-                </div>
-                <div class="text-center">   
-                    <a style="border-radius: 20px; width: 200px; text-align:center" class="btn btn-danger" href="{% url 'edit' %}">Return to Edit Account</a>
-                </div>
-            </div>
-            <div class="col"></div>
+                </select>
+                <button class="btn btn-success justify-center w-full mt-5 mb-3" type="submit">Add this Discipline</button>
+                </form>
         </div>
     </div>
+</dialog>
 
-
-
-    <div class="modal fade" id="newDisciplineModal" tabindex="-1" aria-labelledby="newDisciplineModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="newDisciplineModalLabel">New Discipline selection</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{% url 'edit_disciplines' %}">
-                    {% csrf_token %}
-                    <select class="form-select" name="new_discipline" id="new_discipline" aria-label="Default select example">
-                        {% for discipline in disciplines %}
-                            <option value={{discipline.id}}>{{discipline.discipline_name}}</option>
-                        {% endfor %}
-                    </select>
-                    <button style="border-radius: 20px; width: 200px; text-align:center" class="btn btn-success text-white my-3" type="submit">Add this Discipline</button>
-                  </form>
-            </div>
-          </div>
-        </div>
-      </div>
 {% endblock %}
