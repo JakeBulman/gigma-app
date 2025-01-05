@@ -51,3 +51,10 @@ class ProfileDisciplines(models.Model):
     profile_discipline_order = models.PositiveSmallIntegerField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+class ProfileImages(models.Model):
+    profile = models.ForeignKey(Profile,related_name='profile_images', on_delete=models.CASCADE)
+    profile_image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
+    image_order = models.PositiveSmallIntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
