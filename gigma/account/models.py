@@ -52,9 +52,15 @@ class ProfileDisciplines(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+def user_directory_path_image(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    print('go')
+    return "users/{0}/{1}".format(instance.profile.user.id, filename)
+
 class ProfileImages(models.Model):
     profile = models.ForeignKey(Profile,related_name='profile_images', on_delete=models.CASCADE)
-    profile_image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
+    profile_image = models.ImageField(upload_to=user_directory_path_image, blank=True, null=True)
+    description = models.TextField(null=True)
     image_order = models.PositiveSmallIntegerField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

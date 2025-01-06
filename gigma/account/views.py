@@ -67,7 +67,6 @@ def logout_view(request):
 @login_required
 def edit(request):
 	if request.method == 'POST':
-		print(request.FILES)
 		user_form = UserEditForm(instance=request.user,data=request.POST,prefix="user")
 		profile_form = ProfileEditForm(instance=request.user.profile,data=request.POST,files=request.FILES,prefix="profile")
 		if user_form.is_valid() and profile_form.is_valid():
@@ -95,7 +94,7 @@ def edit_disciplines(request):
 	try:
 		max_priority = ProfileDisciplines.objects.filter(profile=profile).order_by('-profile_discipline_order').first().profile_discipline_order
 	except:
-		max_priority = 1
+		max_priority = 0
 
 	if request.method == 'POST':
 		discipline_id = request.POST.get('new_discipline')
@@ -165,21 +164,25 @@ def edit_profile_images(request):
 	try:
 		max_priority = ProfileImages.objects.filter(profile=profile).order_by('-image_order').first().image_order
 	except:
-		max_priority = 1
+		max_priority = 0
 
-	if request.method == 'POST':
-		discipline_id = request.POST.get('new_discipline')
-		# ProfileImages.objects.create(
-		# 	profile = profile,
-		# 	discipline = Discipline.objects.get(id=discipline_id),
-		# 	skill_level = 3,
-		# 	profile_discipline_order = max_priority + 1
-		# )
+	if request.method == 'POST' and max_priority < 4:
+		profile_img = request.FILES.get('profile_img')
+		image_desc = request.POST.get('image_desc')
+		print(profile_img)
+		print(request.FILES)
+		ProfileImages.objects.create(
+			profile = profile,
+			profile_image = profile_img,
+			description = image_desc,
+			image_order = max_priority + 1
+		)
 		return redirect('edit_profile_images')
+	current_images = ProfileImages.objects.filter(profile=profile).order_by('image_order')
 	my_profile = None
 	if request.user.is_authenticated:
 		my_profile = Profile.objects.get(user_id=request.user)
-	return render(request,'account/edit_profile_images.html',{'profile':profile, 'my_profile':my_profile, 'max_priority':max_priority})
+	return render(request,'account/edit_profile_images.html',{'profile':profile, 'my_profile':my_profile, 'max_priority':max_priority, 'current_images':current_images})
 
 
 @login_required

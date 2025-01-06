@@ -4,28 +4,29 @@
 {% block content %}
 
 <div class="w-5/6">
-    <h1 class="text-2xl pb-5">Edit disciplines</h1>
-    <div class="text-center my-3">   
-        <button class="btn btn-success w-4/5 mt-5" onclick="newDisciplineModal.showModal()">Add New</button>
-    </div>
-    <div class="text-center">   
-        <a class="btn btn-warning w-4/5 my-5" href="{% url 'edit' %}">Return to Edit Account</a>
-    </div>
-    <p class="text-xl pb-3">Current disciplines:</p>
+    <h1 class="text-2xl pb-5">Edit Profile Images</h1>
     <div class="text-center py-3">   
-        {% for discipline in current_disciplines %}
+        <a class="btn btn-warning w-4/5" href="{% url 'edit' %}">Return to Edit Account</a>
+    </div>
+    <div class="text-center pb-3">   
+        <button {% if max_priority > 4 %}disabled{% endif %} class="btn btn-success w-4/5 mt-5" onclick="newImageModal.showModal()">Add New</button>
+    </div>
+
+    <p class="text-xl py-3">Current images:</p>
+    <div class="text-center py-3">   
+        {% for image in current_images %}
             <div class="py-1 flex flex-nowrap items-center justify-evenly"> 
-                {% if discipline.discipline.discipline_icon %}<img src="{{ discipline.discipline.discipline_icon.url }}" style="height: 50px; width:50px" />{% endif %}
-                <h1 class="w-1/2">{{ discipline.discipline.discipline_name }}</h1>
-                <a class="btn btn-info btn-xs" href="{% url 'raise_priority_profile_discipline' discipline.pk %}" {% if discipline.profile_discipline_order == 1 %}disabled{% endif %}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" /></svg></a>
-                <a class="btn btn-info btn-xs" href="{% url 'lower_priority_profile_discipline' discipline.pk %}" {% if discipline.profile_discipline_order == max_priority %}disabled{% endif %}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" /></svg></a>
-                <a class="btn btn-error btn-xs" href="{% url 'delete_profile_discipline' discipline.pk %}"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg></a></div>
+                <img src="{{ image.profile_image.url }}" class="w-1/4" />
+                <h1 class="w-1/2">{{ image.description }}</h1>
+                <a class="btn btn-info btn-xs" href="{% url 'raise_priority_profile_images' image.pk %}" {% if image.image_order == 1 %}disabled{% endif %}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" /></svg></a>
+                <a class="btn btn-info btn-xs" href="{% url 'lower_priority_profile_images' image.pk %}" {% if image.image_order == max_priority %}disabled{% endif %}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" /></svg></a>
+                <a class="btn btn-error btn-xs" href="{% url 'delete_profile_images' image.pk %}"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg></a></div>
         {% endfor %}
     </div>
 </div>
 
 
-<dialog id="newDisciplineModal" class="modal">
+<dialog id="newImageModal" class="modal">
     <form method="dialog" class="modal-backdrop">
         <button>close</button>
     </form>
@@ -33,17 +34,18 @@
         <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
-        <h3 class="text-lg font-bold">New Discipline selection</h3>
+        <h3 class="text-lg font-bold">New Image Upload</h3>
         <div class="modal-action">
-            <form method="post" action="{% url 'edit_disciplines' %}">
+            <form method="post" class="w-full" enctype='multipart/form-data' action="{% url 'edit_profile_images' %}">
                 {% csrf_token %}
-                <select class="select select-lg select-bordered w-full max-w-xs py-3" name="new_discipline" id="new_discipline" aria-label="Default select example">
-                    <option disabled selected>Please choose a discipline</option>
-                    {% for discipline in available_disciplines %}
-                        <option value={{discipline.id}}>{{discipline.discipline_name}}</option>
-                    {% endfor %}
-                </select>
-                <button class="btn btn-success justify-center w-full mt-5 mb-3" type="submit">Add this Discipline</button>
+                <div class="fieldWrapper justify-content-center align-items-center flex-nowrap">
+                    <input class="file-input file-input-sm mb-5 w-full" type="file" name="profile_img" accept="image/*" id="id_profile_image">
+                </div>
+                <label class="input input-bordered flex items-center gap-2 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 h-4 w-4 opacity-70"><path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" /></svg>
+                    <input class="grow border-none" type="text" placeholder="Image Description" name="image_desc" id="id_image_desc">
+                </label>
+                    <button class="btn btn-success justify-center w-full mt-5 mb-3" type="submit">Add this Image</button>
                 </form>
         </div>
     </div>
