@@ -32,7 +32,7 @@ path('lower-priority-profile-images/<int:id>', views.lower_priority_profile_imag
 
 #user views
 path('profile-search/', views.profile_search, name='profile_search'),
-path('<int:id>/', views.profile_details, name='profile_details'),
+path('<int:id>/<slug:stage_slug>/', views.profile_details, name='profile_details'),
 
 #other views
 path('discipline-list/', views.discipline_list, name='discipline_list'),

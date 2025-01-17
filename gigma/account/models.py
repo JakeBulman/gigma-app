@@ -14,9 +14,7 @@ class Profile(models.Model):
     user_about = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
     account_type = models.CharField(max_length=3,choices={"ART":"Artist","ORG":"Organiser","PUB":"Public"},null=True)
-    #portfolio pictures as a seperate model? (this allows for title and description)
-    #portfolio audio as a seperate model? (this allows for title and description)
-    #portfolio video as a seperate model? (this allows for title and description)
+    stage_slug = models.SlugField(max_length=250, blank=True, null=True)
 
     class Meta:
         ordering = ['stage_name']
@@ -26,7 +24,7 @@ class Profile(models.Model):
         return self.stage_name
     
     def get_absolute_url(self):
-        return reverse('profile_details',args=[self.id])
+        return reverse('profile_details',args=[self.id,self.stage_slug])
 
 
 class Discipline(models.Model):

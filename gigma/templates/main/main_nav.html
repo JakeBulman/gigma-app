@@ -11,7 +11,7 @@
   <div class="navbar-end bg-transparent w-1/2 flex-1 justify-end items-end !z-50">
     <a class="pointer-events-auto rounded-full text-xl text-base-content bg-secondary-content border-2 border-gray-400 p-2 me-4" href="{% url 'landing_page' %}">
       <img class="size-6" src="{% static 'admin/img/favicon-50.png' %}"/></a>
-    {% if my_profile.profile_picture != '' and my_profile != None %}
+    {% if my_profile.profile_picture %}
     <label tabindex="0" role="button" for="my-drawer-4" class="pointer-events-auto drawer-button avatar bg-accent-content bg-transparent border-transparent">
       <div class="bg-neutral ring-gray-400 w-24 rounded-full ring ring-offset-0 overflow-visible">
         <img  src="{{ my_profile.profile_picture.url }}"/>

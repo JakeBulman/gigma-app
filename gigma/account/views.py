@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, logout, login
 from gigma.settings import MEDIA_URL
 from django.urls import is_valid_path
 from urllib.parse import urlparse
+from django.utils.text import slugify
 
 @login_required
 def dashboard(request):
@@ -72,6 +73,9 @@ def edit(request):
 		if user_form.is_valid() and profile_form.is_valid():
 			user_form.save()
 			profile_form.save()
+			stage_name = request.POST.get('profile-stage_name')
+			stage_slug = slugify(stage_name)
+			Profile.objects.filter(user_id=request.user).update(stage_slug=stage_slug)
 			messages.success(request, 'Profile updated successfully')
 		else:
 			messages.error(request, 'Error updating your profile')
@@ -228,13 +232,13 @@ def lower_priority_profile_images(request,id=None):
 	return redirect('edit_profile_images')
 
 def profile_search(request):
-	profiles = Profile.objects.all().exclude(user_id=1)
+	profiles = Profile.objects.all().exclude(stage_name__isnull=True)
 	my_profile = None
 	if request.user.is_authenticated:
 		my_profile = Profile.objects.get(user_id=request.user)
 	return render(request, 'account/profile_search.html',{'section':'dashboard','profiles':profiles, 'my_profile':my_profile})
 
-def profile_details(request, id=None):
+def profile_details(request, id, stage_slug):
 	profile = Profile.objects.get(id=id)
 	my_profile = None
 	if request.user.is_authenticated:
